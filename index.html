@@ -14,12 +14,14 @@
         body {
             width: 100vw;
             height: 100vh;
-            background: #05050a;
+            background: #020205;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
         }
 
         canvas {
@@ -31,141 +33,196 @@
             z-index: 1;
         }
 
-        /* Central Glowing Card Overlay */
-        .content-box {
+        /* Top Header / Title */
+        .top-header {
             position: relative;
             z-index: 10;
             text-align: center;
-            padding: 35px 45px;
-            max-width: 620px;
-            width: 90%;
-            background: rgba(5, 5, 10, 0.45);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 229, 255, 0.15);
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(0, 162, 255, 0.2);
+            margin-top: 15px;
+            animation: fadeInDown 2s ease-out;
         }
 
-        h1 {
+        .top-header h1 {
             color: #fff;
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
-            font-weight: 700;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 400;
             letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(0, 195, 255, 0.9),
-                         0 0 30px rgba(0, 119, 255, 0.6),
-                         0 0 50px rgba(0, 119, 255, 0.4);
-            animation: pulseGlow 2s ease-in-out infinite alternate;
+            font-style: italic;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.9),
+                         0 0 30px rgba(255, 20, 147, 0.6);
+        }
+
+        .top-header span {
+            color: #ff3399;
+            font-size: 1.5rem;
+            margin-left: 5px;
+            text-shadow: 0 0 15px rgba(255, 51, 153, 1);
+        }
+
+        /* Bottom Note & Name Box */
+        .bottom-card {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 650px;
+            width: 90%;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            background: rgba(10, 5, 15, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.25);
+            animation: fadeInUp 2s ease-out;
         }
 
         .name {
-            color: #00e5ff;
-            font-size: clamp(1.3rem, 2.8vw, 1.8rem);
-            margin-top: 8px;
+            color: #ff66b2;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
             font-weight: 600;
             letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(0, 229, 255, 0.8),
-                         0 0 30px rgba(0, 149, 255, 0.5);
-        }
-
-        .divider {
-            width: 50px;
-            height: 2px;
-            background: rgba(0, 229, 255, 0.4);
-            margin: 15px auto;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px rgba(255, 102, 178, 0.8);
         }
 
         .note {
-            color: #e0f7fa;
-            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            color: #fce4ec;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             line-height: 1.5;
-            font-weight: 300;
             font-style: italic;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 10px rgba(0, 195, 255, 0.4);
+            font-weight: 300;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
         }
 
-        @keyframes pulseGlow {
-            0% {
-                text-shadow: 0 0 15px rgba(0, 195, 255, 0.7), 0 0 30px rgba(0, 119, 255, 0.4);
-            }
-            100% {
-                text-shadow: 0 0 25px rgba(0, 229, 255, 1), 0 0 50px rgba(0, 149, 255, 0.8), 0 0 80px rgba(0, 149, 255, 0.5);
-            }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="heartCanvas"></canvas>
+    <canvas id="galaxyCanvas"></canvas>
 
-    <div class="content-box">
-        <h1>I Love You</h1>
+    <!-- Top Floating Title -->
+    <div class="top-header">
+        <h1>I Love You <span>❤️</span></h1>
+    </div>
+
+    <!-- Spacer to let the 3D heart shine in the middle -->
+    <div></div>
+
+    <!-- Bottom Personal Note Card -->
+    <div class="bottom-card">
         <div class="name">Laone Ralph Pholo</div>
-        <div class="divider"></div>
         <div class="note">
             "We may have known each other for 4 years now, but I don’t want to not know you in the next 8 years."
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('heartCanvas');
+        const canvas = document.getElementById('galaxyCanvas');
         const ctx = canvas.getContext('2d');
 
-        function resizeCanvas() {
+        function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resize);
+        resize();
 
+        // Starfield / Galaxy particles & Heart particles
         const particles = [];
-        const particleCount = 1200;
+        const starCount = 1500;
+        let angle = 0;
 
+        // Generate 3D Heart Points
         function getHeartPoint(t) {
             const x = 16 * Math.pow(Math.sin(t), 3);
             const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
             return { x: x, y: y };
         }
 
-        for (let i = 0; i < particleCount; i++) {
+        // Initialize background stars and galaxy particles
+        for (let i = 0; i < starCount; i++) {
             particles.push({
-                t: Math.random() * Math.PI * 2,
-                speed: Math.random() * 0.02 + 0.01,
-                size: Math.random() * 2 + 1,
-                alpha: Math.random() * 0.8 + 0.2,
-                color: Math.random() > 0.3 ? '#00bfff' : '#ffffff'
+                x: (Math.random() - 0.5) * canvas.width * 2,
+                y: (Math.random() - 0.5) * canvas.height * 2,
+                z: Math.random() * canvas.width,
+                size: Math.random() * 1.5 + 0.5,
+                color: Math.random() > 0.4 ? '#ff66b2' : '#ffffff'
             });
         }
 
         function animate() {
-            ctx.fillStyle = 'rgba(5, 5, 10, 0.2)';
+            ctx.fillStyle = 'rgba(2, 2, 5, 0.25)'; // Motion blur trail
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const scale = Math.min(canvas.width, canvas.height) / 35;
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            angle += 0.008; // Rotation speed of the galaxy
 
+            // Draw twinkling background stars & galaxy dust
             particles.forEach(p => {
-                p.t += p.speed;
-                if (p.t > Math.PI * 2) p.t = 0;
+                p.z -= 0.5;
+                if (p.z <= 0) p.z = canvas.width;
 
-                const pt = getHeartPoint(p.t);
-                const x = centerX + pt.x * scale;
-                const y = centerY + pt.y * scale + Math.sin(Date.now() * 0.003 + p.t) * 10;
+                const k = 250 / p.z;
+                const px = p.x * k + cx;
+                const py = p.y * k + cy;
 
-                ctx.save();
-                ctx.globalAlpha = p.alpha;
-                ctx.fillStyle = p.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = '#00bfff';
-                ctx.beginPath();
-                ctx.arc(x, y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
+                if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
+                    const size = Math.max(0.1, p.size * k);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = p.color;
+                    ctx.beginPath();
+                    ctx.arc(px, py, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             });
+
+            // Draw Central 3D Rotating Heart Galaxy
+            const heartScale = Math.min(canvas.width, canvas.height) / 38;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#ff2a85';
+
+            for (let t = 0; t < Math.PI * 2; t += 0.04) {
+                const pt = getHeartPoint(t);
+                
+                // 3D Rotation Matrix around Y-axis
+                const x3d = pt.x * heartScale;
+                const y3d = pt.y * heartScale;
+                const z3d = 0; // flat plane or layered
+
+                const cosA = Math.cos(angle);
+                const sinA = Math.sin(angle);
+                
+                const rotX = x3d * cosA - z3d * sinA;
+                const rotZ = x3d * sinA + z3d * cosA;
+
+                const fov = 400;
+                const scaleProjection = fov / (fov + rotZ);
+                const screenX = cx + rotX * scaleProjection;
+                const screenY = cy + y3d * scaleProjection;
+
+                ctx.fillStyle = '#ff3399';
+                ctx.beginPath();
+                ctx.arc(screenX, screenY, 2.2 * scaleProjection, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Inner glowing core particles for the heart
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(screenX + (Math.random() - 0.5) * 4, screenY + (Math.random() - 0.5) * 4, 1, 0, Math.PI * 2);
+                ctx.fill();
+            }
 
             requestAnimationFrame(animate);
         }
